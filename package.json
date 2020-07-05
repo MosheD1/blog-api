@@ -1,0 +1,27 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MosheD1/blog-api.git"
+  },
+  "author": "moshed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MosheD1/blog-api/issues"
+  },
+  "homepage": "https://github.com/MosheD1/blog-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
