@@ -26,7 +26,8 @@ app.post('/signin', (req, res) => {
     if(db.users.some(user => {
         return user.email == req.body.email && user.password == req.password;
     })) {
-        res.status(200).json(db);
+        var user = db.users.find(user => user.email === req.body.email);
+        res.status(200).json(user);
     } else {
         res.status(400).send({ error: 'email or passward is wrong'});
     }
