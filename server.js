@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const kx = require('knex');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const postgres = kx({
     client: 'pg',
@@ -28,7 +30,7 @@ app.post('/signin', (req, res) => {
         })
         .select('*')
         .then(users => {
-            const isValid = users[0].password_hash === req.body.password
+            const isValid = bcrypt.compareSync(req.body.password, users[0].password_hash)
             if(isValid) {
                 return trx.insert({
                     email: users[0].email,
@@ -50,11 +52,12 @@ app.post('/signin', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
+    const hash = bcrypt.hashSync(req.body.password, saltRounds);
     postgres.transaction(trx => {
         trx.insert({
             name: req.body.name,
             email: req.body.email,
-            password_hash: req.body.password,
+            password_hash: hash,
             joined: new Date()
         })
         .into('users')
